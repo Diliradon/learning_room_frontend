@@ -1,3 +1,49 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-4xl leading-[100%] font-bold font-sans;
+  }
+
+  h2 {
+    @apply text-[32px] leading-[100%] font-bold font-sans;
+  }
+
+  h3 {
+    @apply text-[28px] leading-[100%] font-bold font-sans;
+  }
+
+  h4 {
+    @apply text-2xl leading-[100%] font-bold font-sans;
+  }
+
+  h5 {
+    @apply text-xl leading-[100%] font-bold font-sans;
+  }
+
+  h6 {
+    @apply text-lg leading-[100%] font-bold font-sans;
+  }
+
+  p, .main-text {
+    @apply text-base leading-[150%] font-normal font-sans;
+  }
+
+  .main-text-medium {
+    @apply font-medium;
+  }
+
+  .secondary-text {
+    @apply text-sm leading-[150%] font-normal font-sans;
+  }
+
+  small {
+    @apply text-xs leading-[150%] font-normal font-sans;
+  }
+
+  button {
+    @apply text-base font-medium font-sans;
+  }
+}
