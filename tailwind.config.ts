@@ -16,9 +16,27 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      maxWidth: {
+        '97.5': '24.375rem',
+        '86': '21.5rem',
+        '78': '19.5rem',
+      },
+      margin: {
+        '18': '4.5rem',
+      },
+      padding: {
+        '31.5': '7.875rem',
+        '18.75': '4.68rem',
+        '18': '4.5rem',
+      },
+    },
+    screens: {
+      sm: '360px',
+      md: '768px',
+      lg: '1280px',
     },
     colors: {
-      'text-color': '#0F0F10',
+      'text/color': '#0F0F10',
       'primary/100': '#111111',
       'primary/200': '#FED851',
       'secondary/100': '#A6DCEF',

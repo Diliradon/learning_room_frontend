@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import { Ubuntu } from 'next/font/google';
+
+import { ReduxProvider } from '@/redux/provider';
 import './globals.css';
 
 const ubuntu = Ubuntu({
@@ -24,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={ubuntu.className} suppressHydrationWarning={true}>
-        {children}
+        <ReduxProvider>{children}</ReduxProvider>
       </body>
     </html>
   );
