@@ -9,12 +9,13 @@
   }
 
   html, body {
+    height: 100%;
     margin: 0;
     min-width: 300px;
   }
 
   body {
-    @apply flex min-h-screen flex-col bg-grey/0;
+    @apply flex min-h-screen flex-col bg-grey/0 text-grey/100;
   }
 
   main {
@@ -26,7 +27,7 @@
   }
 
   h2 {
-    @apply text-[32px] leading-[100%] font-bold font-ubuntuBold;
+    @apply text-[32px] leading-[100%] font-bold font-ubuntuBold text-grey/100;
   }
 
   h3 {
@@ -38,7 +39,7 @@
   }
 
   h5 {
-    @apply text-xl leading-[100%] font-bold font-ubuntuBold;
+    @apply text-xl leading-[100%] font-bold font-ubuntuBold text-grey/80;
   }
 
   h6 {

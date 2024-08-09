@@ -40,7 +40,7 @@ const config: Config = {
     },
     colors: {
       'text/color': '#0F0F10',
-      'primary/100': '#111111',
+      'primary/100': '#F9E783',
       'primary/200': '#FED851',
       'secondary/100': '#A6DCEF',
       'secondary/200': '#77D99F',

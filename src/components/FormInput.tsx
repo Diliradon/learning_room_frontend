@@ -26,7 +26,7 @@ export const FormInput = forwardRef<HTMLInputElement, Props>(
   ) => {
     return (
       <label
-        className={cn('flex flex-col gap-2 max-w-78 lg:max-w-97.5 w-full md:max-w-86', className)}
+        className={cn('flex flex-col gap-2 text-start', className)}
       >
         <p className="main-text-medium text-grey/100">{title}</p>
 
@@ -35,7 +35,7 @@ export const FormInput = forwardRef<HTMLInputElement, Props>(
             ref={ref}
             type={showPassword ? 'text' : type}
             {...rest}
-            className={`w-full rounded-[100px] border border-grey/10 py-2.5 px-[10px] focus:outline-primary/200`}
+            className={`main-text w-full rounded-[100px] border border-grey/10 py-2.5 px-[12px] focus:outline-primary/200`}
           />
 
           {type === 'password' && (

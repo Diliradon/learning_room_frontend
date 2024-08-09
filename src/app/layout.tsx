@@ -1,15 +1,8 @@
 import type { Metadata } from 'next';
-import { Ubuntu } from 'next/font/google';
 
 import { ReduxProvider } from '@/redux/provider';
 import './globals.css';
 
-const ubuntu = Ubuntu({
-  subsets: ['latin'],
-  weight: ['400', '500', '700'],
-  style: ['normal', 'italic'],
-  display: 'swap',
-});
 
 export const metadata: Metadata = {
   title: 'Learning Room App',
@@ -25,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={ubuntu.className} suppressHydrationWarning={true}>
+      <body suppressHydrationWarning={true}>
         <ReduxProvider>{children}</ReduxProvider>
       </body>
     </html>

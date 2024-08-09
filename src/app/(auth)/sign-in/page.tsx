@@ -13,7 +13,7 @@ const SignInPage = () => {
       title="Sign in"
       description="Enter your details"
       type="signin"
-      titleButton="Next"
+      titleButton="Get started"
     >
       <FormInput title="Email" placeholder="Enter your email" type="email" />
 
