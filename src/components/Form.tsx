@@ -57,7 +57,7 @@ export const Form: React.FC<Props> = ({
           </h5>
         </div>
 
-        <div className="mt-10 flex w-full flex-col items-center gap-2 md:mt-8">
+        <div className="pt-10 flex w-full flex-col items-center gap-2 md:pt-8">
           {children}
         </div>
 

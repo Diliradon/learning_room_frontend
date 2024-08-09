@@ -9,7 +9,10 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Ubuntu', 'ui-sans-serif', 'system-ui'],
+        ubuntu: ["Ubuntu Regular"],
+        ubuntuBold: ["Ubuntu Bold"],
+        ubuntuMedium: ["Ubuntu Medium"],
+        ubuntuLight: ["Ubuntu Light"],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

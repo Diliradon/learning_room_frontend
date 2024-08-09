@@ -26,16 +26,16 @@ export const FormInput = forwardRef<HTMLInputElement, Props>(
   ) => {
     return (
       <label
-        className={cn('max-w-78 lg:max-w-97.5 w-full md:max-w-86', className)}
+        className={cn('flex flex-col gap-2 max-w-78 lg:max-w-97.5 w-full md:max-w-86', className)}
       >
-        <p className="font-medium text-grey/100">{title}</p>
+        <p className="main-text-medium text-grey/100">{title}</p>
 
         <div className="relative">
           <input
             ref={ref}
             type={showPassword ? 'text' : type}
             {...rest}
-            className={`h-11 w-full rounded-[100px] border border-grey/10 p-2.5 focus:outline-primary/200`}
+            className={`w-full rounded-[100px] border border-grey/10 py-2.5 px-[10px] focus:outline-primary/200`}
           />
 
           {type === 'password' && (
