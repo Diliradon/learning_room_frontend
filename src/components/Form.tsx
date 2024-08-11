@@ -44,10 +44,10 @@ export const Form: React.FC<Props> = ({
             />
           )}
 
-          <h2 className="mx-auto text-grey/100">{title}</h2>
+          <h2 className="mx-auto text-gray-100">{title}</h2>
         </div>
 
-        <h5 className="mx-auto text-center text-grey/80">{description}</h5>
+        <h5 className="mx-auto text-center text-gray-80">{description}</h5>
       </div>
 
       <form
@@ -67,7 +67,7 @@ export const Form: React.FC<Props> = ({
           )}
         </div>
 
-        <div className="flex flex-col gap-4 pb-32 md:pb-20">
+        <div className="flex flex-col gap-4 pb-32 md:pb-20 lg:pb-0">
           <Button
             type={type === 'signup' ? 'button' : 'submit'}
             onClick={onNext}
@@ -77,12 +77,12 @@ export const Form: React.FC<Props> = ({
 
           {type === 'signin' && (<p
             className={cn(
-              'text-grey/60 opacity-0',
+              'text-gray-60 opacity-0',
               type === 'signin' && 'opacity-100',
             )}
           >
             Don&#8217;t have an account?{' '}
-            <Link href="/sign-up" className="relative text-grey/100 underline">
+            <Link href="/sign-up" className="relative text-gray-100 underline">
               Sign up
             </Link>
           </p>)}

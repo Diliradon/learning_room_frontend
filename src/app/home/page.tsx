@@ -6,7 +6,7 @@ import { Button } from '@/components/Button';
 
 export const Hero: React.FC = () => {
   return (
-    <div className="bg-grey/10 flex h-screen">
+    <div className="bg-gray-10 flex h-screen">
       <AsideMenu />
 
       <div

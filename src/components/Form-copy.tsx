@@ -34,7 +34,7 @@ export const Form: React.FC<Props> = ({
   return (
     <form
       className={cn(
-        `flex flex-1 flex-col justify-between bg-grey/0 px-6 pb-31.5 pt-18 shadow-[20px_0px_32px_0px_#0000000D] md:mt-auto md:min-h-[672px] md:rounded-t-3xl md:px-[212px] md:pb-18.75 lg:m-0 lg:max-w-[608px] lg:justify-center lg:gap-8 lg:rounded-l-none lg:rounded-r-3xl lg:px-32`,
+        `flex flex-1 flex-col justify-between bg-gray-0 px-6 pb-31.5 pt-18 shadow-[20px_0px_32px_0px_#0000000D] md:mt-auto md:min-h-[672px] md:rounded-t-3xl md:px-[212px] md:pb-18.75 lg:m-0 lg:max-w-[608px] lg:justify-center lg:gap-8 lg:rounded-l-none lg:rounded-r-3xl lg:px-32`,
         className,
       )}
       onSubmit={onSubmit}
@@ -49,10 +49,10 @@ export const Form: React.FC<Props> = ({
               />
             )}
 
-            <h2 className="mx-auto text-grey/100">{title}</h2>
+            <h2 className="mx-auto text-gray-100">{title}</h2>
           </div>
 
-          <h5 className="mx-auto text-center text-grey/80">{description}</h5>
+          <h5 className="mx-auto text-center text-gray-80">{description}</h5>
         </div>
 
         <div className="flex w-full flex-col items-center gap-2 pt-10 md:pt-8">
@@ -76,14 +76,14 @@ export const Form: React.FC<Props> = ({
 
         <p
           className={cn(
-            'text-grey/60 opacity-0',
+            'text-gray-60 opacity-0',
             type === 'signin' && 'opacity-100',
           )}
         >
           Don&#8217;t have an account?{' '}
           <Link
             href="/signup"
-            className="underline-after relative text-grey/100"
+            className="underline-after relative text-gray-100"
           >
             Sign up
           </Link>

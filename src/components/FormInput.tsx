@@ -28,14 +28,14 @@ export const FormInput = forwardRef<HTMLInputElement, Props>(
       <label
         className={cn('flex flex-col gap-2 text-start', className)}
       >
-        <p className="main-text-medium text-grey/100">{title}</p>
+        <p className="main-text-medium text-gray-100">{title}</p>
 
         <div className="relative">
           <input
             ref={ref}
             type={showPassword ? 'text' : type}
             {...rest}
-            className={`main-text w-full rounded-[100px] border border-grey/10 py-2.5 px-[12px] focus:outline-primary/200`}
+            className={`main-text w-full rounded-[100px] border border-gray-10 py-2.5 px-[12px] focus:outline-primary/200`}
           />
 
           {type === 'password' && (
@@ -45,9 +45,9 @@ export const FormInput = forwardRef<HTMLInputElement, Props>(
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? (
-                <EyeOff className="text-grey/100" />
+                <EyeOff className="text-gray-100" />
               ) : (
-                <Eye className="text-grey/100" />
+                <Eye className="text-gray-100" />
               )}
             </button>
           )}

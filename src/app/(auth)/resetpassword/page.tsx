@@ -11,7 +11,7 @@ const ResetPassword = () => {
       titleButton="Next"
     >
       <p
-        className={`max-w-78 lg:max-w-97.5 text-center text-grey/80 md:max-w-86`}
+        className={`max-w-78 lg:max-w-97.5 text-center text-gray-80 md:max-w-86`}
       >
         Don&#39;t worry. Please provide us with your email and we will send you
         a recovery link

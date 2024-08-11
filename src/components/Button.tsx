@@ -16,9 +16,8 @@ export const Button: React.FC<Props> = ({
   return (
     <button
       className={cn(
-        // `max-w-78 lg:max-w-97.5 h-11 w-full rounded-[100px] focus:border md:max-w-86`,
-        `h-11 w-full rounded-[100px] focus:border md:max-w-86`,
-        applyBackground && 'bg-primary/200',
+        `h-11 w-full rounded-[100px] focus:border`,
+        applyBackground && 'bg-primary-200',
         className,
       )}
       {...rest}

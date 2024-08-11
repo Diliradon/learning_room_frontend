@@ -1,4 +1,5 @@
 @import '../styles/fonts/fonts.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -15,7 +16,7 @@
   }
 
   body {
-    @apply flex min-h-screen flex-col bg-grey/0 text-grey/100;
+    @apply flex min-h-screen flex-col bg-gray-0 text-gray-100;
   }
 
   main {
@@ -27,7 +28,7 @@
   }
 
   h2 {
-    @apply text-[32px] leading-[100%] font-bold font-ubuntuBold text-grey/100;
+    @apply text-[32px] leading-[100%] font-bold font-ubuntuBold text-gray-100;
   }
 
   h3 {
@@ -39,7 +40,7 @@
   }
 
   h5 {
-    @apply text-xl leading-[100%] font-bold font-ubuntuBold text-grey/80;
+    @apply text-xl leading-[100%] font-bold font-ubuntuBold text-gray-80;
   }
 
   h6 {
@@ -69,12 +70,12 @@
 
 @layer components {
   .underline-after {
-    @apply after:content-[''] after:absolute after:h-0.5 after:w-full after:bg-grey/100 after:transition-transform after:-mb-0.5
+    @apply after:content-[''] after:absolute after:h-0.5 after:w-full after:bg-gray-100 after:transition-transform after:-mb-0.5
       after:duration-[0.3s] after:ease-[ease-in-out] after:scale-x-0 after:left-0 after:bottom-0 hover:after:scale-x-100;
   }
 
   /* .form-auth {
-    @apply flex flex-1 flex-col justify-around bg-grey/0 p-6 shadow-[20px_0px_32px_0px_#0000000D] md:mt-auto md:min-h-[672px]
+    @apply flex flex-1 flex-col justify-around bg-gray-0 p-6 shadow-[20px_0px_32px_0px_#0000000D] md:mt-auto md:min-h-[672px]
     md:rounded-t-3xl md:px-[212px]lg:m-0 lg:max-w-[608px] lg:rounded-l-none lg:rounded-r-3xl lg:px-32
   } */
 }

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import { ReduxProvider } from '@/redux/provider';
-import './globals.css';
+import '../styles/globals.css';
 
 
 export const metadata: Metadata = {
