@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import { ReduxProvider } from '@/redux/provider';
 import '../styles/globals.css';
+import SidebarProvider from '@/contexts/SideBarContext';
 
 
 export const metadata: Metadata = {
@@ -19,7 +20,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning={true}>
-        <ReduxProvider>{children}</ReduxProvider>
+        <ReduxProvider>
+          <SidebarProvider>
+            {children}
+          </SidebarProvider>
+        </ReduxProvider>
       </body>
     </html>
   );

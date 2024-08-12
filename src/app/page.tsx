@@ -1,9 +1,13 @@
-import Hero from "./home/page";
+"use client"
+import HeroLayout from './home/layout';
+import Hero from './home/page';
 
 export default function Home() {
   return (
     <main>
-      <Hero />
+      <HeroLayout>
+        <Hero />
+      </HeroLayout>
     </main>
   );
 }
