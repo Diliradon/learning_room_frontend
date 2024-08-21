@@ -5,10 +5,13 @@ import { Button } from '@/components/Button';
 import { Menu, Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { SidebarContext } from '@/contexts/SideBarContext';
+import { useAppSelector } from '@/hooks/useAppSelector';
+import Image from 'next/image';
 
 export const Hero: React.FC = () => {
   const [courses, setCourses] = useState([]);
   const { isSidebarOpen, toggleSidebar } = useContext(SidebarContext);
+  const auth = useAppSelector(state => state.auth)
 
   const handleBurger = () => toggleSidebar();
   return (

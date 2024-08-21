@@ -1,6 +1,8 @@
+'use client';
+
 import { cn } from '@/lib/utils';
 import { Eye, EyeOff } from 'lucide-react';
-import { forwardRef } from 'react';
+import { Dispatch, forwardRef, SetStateAction, useState } from 'react';
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
@@ -9,6 +11,8 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   type?: string;
   showPassword?: boolean;
   setShowPassword?: (value: boolean) => void;
+  query?: string;
+  setQuery?: Dispatch<SetStateAction<string>>;
 }
 
 export const FormInput = forwardRef<HTMLInputElement, Props>(
@@ -20,38 +24,47 @@ export const FormInput = forwardRef<HTMLInputElement, Props>(
       type,
       showPassword = false,
       setShowPassword = () => {},
+      query,
+      setQuery,
       ...rest
     },
     ref,
   ) => {
+    const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (setQuery) {
+        setQuery(event.target.value);
+      }
+    };
+
     return (
       <label
-        className={cn('flex flex-col gap-2 text-start', className)}
+        key={type}
+        className={cn('flex flex-col gap-2 text-start relative', className)}
       >
         <p className="main-text-medium text-gray-100">{title}</p>
+        <input
+          ref={ref}
+          value={query}
+          onChange={handleInput}
+          type={showPassword ? 'text' : type}
+          {...rest}
+          className={`main-text border-gray-10 w-full rounded-[100px] border px-[12px] py-2.5 focus:outline-primary/200`}
+          autoComplete={type}
+        />
 
-        <div className="relative">
-          <input
-            ref={ref}
-            type={showPassword ? 'text' : type}
-            {...rest}
-            className={`main-text w-full rounded-[100px] border border-gray-10 py-2.5 px-[12px] focus:outline-primary/200`}
-          />
-
-          {type === 'password' && (
-            <button
-              type="button"
-              className="absolute end-0 top-0 rounded-e-md p-2.5"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? (
-                <EyeOff className="text-gray-100" />
-              ) : (
-                <Eye className="text-gray-100" />
-              )}
-            </button>
-          )}
-        </div>
+        {type === 'password' && (
+          <button
+            type="button"
+            className="absolute end-2 top-8 rounded-e-md p-2.5"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? (
+              <EyeOff className="text-gray-100" />
+            ) : (
+              <Eye className="text-gray-100" />
+            )}
+          </button>
+        )}
 
         {!!errorMessage && <small className="">{errorMessage}</small>}
       </label>

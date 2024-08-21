@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import React, { useContext } from 'react';
 import { usePathname } from 'next/navigation';
@@ -12,7 +14,7 @@ import {
   LucideProps,
 } from 'lucide-react';
 import { SidebarContext } from '@/contexts/SideBarContext';
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { useAppSelector } from '@/hooks/useAppSelector';
 
 type MenuItem = {
   name: string;
@@ -33,6 +35,7 @@ const menuItems: MenuItem[] = [
 const SideBar: React.FC = () => {
   const pathname = usePathname();
   const { isSidebarOpen, toggleSidebar } = useContext(SidebarContext);
+  const { userInfo } = useAppSelector(state => state.auth);
 
   const handleBurger = () => toggleSidebar();
 
@@ -61,8 +64,10 @@ const SideBar: React.FC = () => {
               !isSidebarOpen && 'justify-center',
             )}
           >
-            <img className="h-12 w-12" src="./avatar.svg" alt="avatar" />
-            {isSidebarOpen && <h6>Ann Kovalenko</h6>}
+            <img className="h-12 w-12" src="/avatar.svg" alt="avatar" />
+            {isSidebarOpen && (
+              <h6>{`${userInfo?.firstName} ${userInfo?.lastName}`}</h6>
+            )}
           </li>
           {menuItems.map(item => (
             <li

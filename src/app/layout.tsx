@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { ReduxProvider } from '@/redux/provider';
 import '../styles/globals.css';
 import SidebarProvider from '@/contexts/SideBarContext';
-
+import Head from 'next/head';
 
 export const metadata: Metadata = {
   title: 'Learning Room App',
@@ -21,9 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body suppressHydrationWarning={true}>
         <ReduxProvider>
-          <SidebarProvider>
-            {children}
-          </SidebarProvider>
+            <SidebarProvider>{children}</SidebarProvider>
         </ReduxProvider>
       </body>
     </html>
