@@ -7,12 +7,15 @@ import { Dispatch, forwardRef, SetStateAction, useState } from 'react';
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   title?: string;
+  name?: string;
   errorMessage?: string;
   type?: string;
   showPassword?: boolean;
   setShowPassword?: (value: boolean) => void;
   query?: string;
   setQuery?: Dispatch<SetStateAction<string>>;
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  setError?: Dispatch<SetStateAction<{ [key: string]: string }>>;
 }
 
 export const FormInput = forwardRef<HTMLInputElement, Props>(
@@ -22,15 +25,23 @@ export const FormInput = forwardRef<HTMLInputElement, Props>(
       title,
       errorMessage,
       type,
+      name,
       showPassword = false,
       setShowPassword = () => {},
       query,
       setQuery,
+      onBlur,
+      setError,
       ...rest
     },
     ref,
   ) => {
     const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { name } = event.target;
+      if (setError) {
+        setError(prevErrors => ({ ...prevErrors, [name]: '' }));
+      }
+
       if (setQuery) {
         setQuery(event.target.value);
       }
@@ -44,11 +55,16 @@ export const FormInput = forwardRef<HTMLInputElement, Props>(
         <p className="main-text-medium text-gray-100">{title}</p>
         <input
           ref={ref}
+          name={name}
           value={query}
           onChange={handleInput}
+          onBlur={onBlur}
           type={showPassword ? 'text' : type}
           {...rest}
-          className={`main-text border-gray-10 w-full rounded-[100px] border px-[12px] py-2.5 focus:outline-primary/200`}
+          className={cn(
+            'main-text border-gray-10 w-full rounded-[100px] px-[12px] py-2.5 focus:outline-primary/200',
+            errorMessage ? 'border-error border-2' : 'border-gray-10 border',
+          )}
           autoComplete={type}
         />
 
@@ -65,8 +81,7 @@ export const FormInput = forwardRef<HTMLInputElement, Props>(
             )}
           </button>
         )}
-
-        {!!errorMessage && <small className="">{errorMessage}</small>}
+        {!!errorMessage && <small className="text-error">{errorMessage}</small>}
       </label>
     );
   },

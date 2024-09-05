@@ -77,12 +77,14 @@ const authSlice = createSlice({
       state.error = null;
       localStorage.clear();
     },
+
   },
   extraReducers: builder => {
     builder
       .addCase(loginUser.pending, state => {
         localStorage.removeItem('userInfo');
         state.loading = true;
+        console.log('loading');
         state.error = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
@@ -105,6 +107,7 @@ const authSlice = createSlice({
       .addCase(signupUser.pending, state => {
         localStorage.removeItem('userInfo');
         state.loading = true;
+        console.log('loading');
         state.error = null;
       })
       .addCase(signupUser.fulfilled, (state, action) => {
