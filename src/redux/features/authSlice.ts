@@ -1,5 +1,4 @@
 import { signUpUser, singInUser } from '@/lib/api/userApi';
-import { useLocalStorage } from '@/lib/utils';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 interface UserInfo {
@@ -16,7 +15,14 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-  userInfo: useLocalStorage('userInfo') || null,
+  userInfo: typeof window !== 'undefined'
+  ? (() => {
+      const storedUserInfo = localStorage.getItem('userInfo');
+      return storedUserInfo && storedUserInfo !== 'undefined'
+        ? JSON.parse(storedUserInfo)
+        : null;
+    })()
+  : null,
   loading: false,
   error: null,
 };
@@ -31,7 +37,7 @@ export const loginUser = createAsyncThunk(
       const userData = await singInUser({ email, password });
       return userData;
     } catch (error: any) {
-      console.error('Sign up error:', error);
+      console.error('Sign in error:', error);
       return rejectWithValue(
         error.response?.data || error.message || 'Unknown error',
       );
@@ -95,7 +101,7 @@ const authSlice = createSlice({
           email: action.payload.email,
           picture: action.payload.profile_picture,
         };
-        localStorage.setItem('userInfo', JSON.stringify(action.payload?.user));
+        localStorage.setItem('userInfo', JSON.stringify(state.userInfo));
         console.log('User Info:', state.userInfo);
       })
       .addCase(loginUser.rejected, (state, action) => {

@@ -1,3 +1,5 @@
+'use client'; 
+
 import { SidebarContext } from "@/contexts/SideBarContext";
 import { cn } from "@/lib/utils";
 import { Menu, Search } from 'lucide-react';
