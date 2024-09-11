@@ -28,12 +28,15 @@ export const ModalCart: React.FC<ModalCartProps> = ({
               />
             </div>
             {description && (
-              <p className="main-text text-center text-gray-80">{description}</p>
+              <p className="main-text text-center text-gray-80">
+                {description}
+              </p>
             )}
           </div>
-          <form className="flex h-full flex-col justify-between pt-10 md:mx-auto md:h-auto md:w-2/3 md:justify-normal md:pt-6">
+          {children}
+          {/* <form className="flex h-full flex-col justify-between pt-10 md:mx-auto md:h-auto md:w-2/3 md:justify-normal md:pt-6">
             {children}
-          </form>
+          </form> */}
         </div>
       </div>
     </div>

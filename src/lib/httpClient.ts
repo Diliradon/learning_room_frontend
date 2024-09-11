@@ -17,11 +17,11 @@ const getCookie = (name: string): string | undefined => {
   return undefined;
 };
 
-export function request(
+export function request<T>(
   url: string,
   method: RequestMethod = 'GET',
   data: any = null,
-) {
+): Promise<T> {
   const options: RequestInit = {
     method,
     credentials: 'include',
@@ -67,10 +67,11 @@ export function request(
     });
 }
 
+
 export const client = {
-  get: (url: string) => request(url),
-  post: (url: string, data: any) => request(url, 'POST', data),
-  patch: (url: string, data: any) => request(url, 'PATCH', data),
+  get: <T>(url: string) => request<T>(url),
+  post: <T>(url: string, data: any) => request<T>(url, 'POST', data),
+  patch: <T>(url: string, data: any) => request<T>(url, 'PATCH', data),
   delete: (url: string) => request(url, 'DELETE'),
 };
 

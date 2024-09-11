@@ -40,7 +40,7 @@
   }
 
   h5 {
-    @apply text-xl leading-[100%] font-bold font-ubuntuBold text-gray-80;
+    @apply text-xl leading-[100%] font-bold font-ubuntuBold;
   }
 
   h6 {

@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/Button';
 
 export const Study: React.FC = () => {
+  console.log('I render')
   return (
     <div className="main-padding flex h-full w-full flex-col bg-gray-0 md:bg-transparent">
       <Header title="Join the course" />
