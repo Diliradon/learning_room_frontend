@@ -43,7 +43,8 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <div className="main-padding flex h-full w-full flex-col">
+    <div className="main-padding flex w-full flex-col">
+    {/* <div className="main-padding flex h-full w-full flex-col"> */}
       <Header title="Homepage" />
 
       {loading ? (

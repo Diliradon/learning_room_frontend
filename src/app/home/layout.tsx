@@ -1,4 +1,4 @@
-import SideBar from "@/components/SideBar/Sidebar";
+import SideBar from '@/components/SideBar/Sidebar';
 
 export default function HeroLayout({
   children,
@@ -6,11 +6,9 @@ export default function HeroLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main>
-      <div className="bg-gray-10 flex h-screen">
-        <SideBar />
-        {children}
-      </div>
-    </main>
+    <div className="flex h-full bg-gray-10">
+      <SideBar />
+      {children}
+    </div>
   );
 }

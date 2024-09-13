@@ -1,6 +1,7 @@
 import { createCourse, getCourses, joinCourse } from '@/lib/api/coursesApi';
 import client from '@/lib/httpClient';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { TableRowsSplitIcon } from 'lucide-react';
 
 type TeachersType = {
   first_name: string;
@@ -76,7 +77,6 @@ export const createNewCourse = createAsyncThunk(
       });
       return newCourse as CourseType;
     } catch (error: any) {
-      console.error('Sign in error:', error);
       return rejectWithValue(
         error.response?.data || error.message || 'Unknown error',
       );

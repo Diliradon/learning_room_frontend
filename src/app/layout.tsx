@@ -21,8 +21,11 @@ export default function RootLayout({
     <html lang="en">
       <body suppressHydrationWarning={true}>
         <ReduxProvider>
-            <SidebarProvider>{children}</SidebarProvider>
+            <SidebarProvider>
+              {children}
+            </SidebarProvider>
         </ReduxProvider>
+        <div id="modal-root"></div>
       </body>
     </html>
   );

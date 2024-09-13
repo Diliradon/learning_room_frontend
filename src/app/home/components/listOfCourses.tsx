@@ -11,7 +11,7 @@ const colors = ['#A6DCEF', '#77D99F', '#FDB7AA', '#D2ADE6', '#FC846A', '#F9E783'
 export const CoursesList: React.FC<Props> = ({ courses }) => {
 
   return (
-    <div className="grid-container w-full pt-6">
+    <div className="grid-container w-full py-6">
       {courses.map((course, index) => (
         <div
           className={cn(

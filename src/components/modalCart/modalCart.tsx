@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
 import { X } from 'lucide-react';
 
 type ModalCartProps = {
@@ -15,8 +16,17 @@ export const ModalCart: React.FC<ModalCartProps> = ({
   closeModal,
   description,
 }) => {
-  return (
-    <div className="main-padding fixed inset-0 bg-gray-0 pb-[74px] pt-6 md:bg-gray-100/50 md:py-0">
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    console.log("Portal component mounted");
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null;
+
+  return ReactDOM.createPortal(
+    <div className="main-padding fixed inset-0 bg-gray-0 pb-[74px] pt-6 backdrop-blur-sm md:bg-gray-100/50 md:py-0">
       <div className="grid-container bg-white h-full w-full justify-center md:items-center">
         <div className="col-span-full flex flex-col md:col-span-6 md:col-start-2 md:rounded-3xl md:bg-gray-0 md:py-[60px] md:shadow-sm lg:col-start-4">
           <div className="flex flex-col items-center gap-4 md:gap-2">
@@ -34,11 +44,9 @@ export const ModalCart: React.FC<ModalCartProps> = ({
             )}
           </div>
           {children}
-          {/* <form className="flex h-full flex-col justify-between pt-10 md:mx-auto md:h-auto md:w-2/3 md:justify-normal md:pt-6">
-            {children}
-          </form> */}
         </div>
       </div>
-    </div>
+    </div>,
+    document.getElementById('modal-root') as HTMLElement
   );
 };

@@ -3,6 +3,8 @@ import { Button } from '../Button';
 import { ModalCart } from './ModalCart';
 import { cn } from '@/lib/utils';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { createNewCourse } from '@/redux/features/coursesSlice';
+import { useAppSelector } from '@/hooks/useAppSelector';
 
 const inputFields = [
   { name: 'Name of the course', placeholder: 'Math' },
@@ -15,16 +17,47 @@ type Props = {
 
 export const CreateCourseModal: React.FC<Props> = ({ closeModal }) => {
   const dispatch = useAppDispatch();
-  const [courseKey, setCourseKey] = useState('');
+  const [ successMessage, setSuccessMessage ] = useState('');
+  const [ formData, setFormData ] = useState<{ [key: string]: string }>({});
+  const [ error, setError ] = useState('');
+
+  const textStyle = error ? 'text-error' : 'text-success';
 
   const handleOnCreate = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // dispatch(joinCourseAction(courseKey));
+    const newCourseInfo = {
+      name: formData.name,
+      description: formData.description,
+      number_of_classroom: formData.classroom,
+    };
+
+    console.log(newCourseInfo);
+
+    dispatch(createNewCourse(newCourseInfo))
+      .unwrap()
+      .then(() => {
+        setSuccessMessage('The course was successfully created!');
+        setTimeout(() => {
+          closeModal();
+        }, 2000);
+      })
+      .catch(() => {
+        setError('There was an error while creating the course. Please, try again.');
+      });
   };
 
-  const handleOnInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCourseKey(event.target.value);
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setSuccessMessage('');
+    setError('');
+
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      [event.target.name]: event.target.value,
+    }));
+    console.log(event.target.name, event.target.value);
   };
 
   return (
@@ -46,6 +79,9 @@ export const CreateCourseModal: React.FC<Props> = ({ closeModal }) => {
                   'main-text focus:outline-primary/200 w-full rounded-[100px] border border-gray-10 px-[12px] py-2.5',
                 )}
                 placeholder={item.placeholder}
+                name={item.name === 'Classroom' ? 'classroom' : 'name'}
+                value={formData[item.name]}
+                onChange={handleInputChange}
               />
             </label>
           ))}
@@ -56,8 +92,15 @@ export const CreateCourseModal: React.FC<Props> = ({ closeModal }) => {
                 'main-text focus:outline-primary/200 h-[96px] w-full rounded-[16px] border border-gray-10 px-[12px] py-2.5',
               )}
               placeholder="First semester"
+              name="description"
+              value={formData.description}
+              onChange={handleInputChange}
             />
           </label>
+
+          <small className={textStyle}>
+            {error ? error : successMessage}
+          </small>
         </div>
         <div className="flex flex-col-reverse gap-4 pt-6 md:gap-6 lg:flex-row lg:gap-4">
           <Button
