@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { Header } from '@/components/header/header';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Header } from '@/app/home/components/header/header';
 import { CreateCourseModal } from '@/components/modalCart/CreateCourseModal';
 import { JoinTheCourseModal } from '@/components/modalCart/JoinTheCourseModal';
 import { ActionButtons } from './components/actionButtons';
@@ -10,41 +10,51 @@ import { useAppSelector } from '@/hooks/useAppSelector';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { CoursesList } from './components/listOfCourses';
 import { BookOpen, BookPlus, Plus, X } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
 
 export const Hero: React.FC = () => {
   const [showJoinCourse, setShowJoinCourse] = useState(false);
   const [showCreateCourse, setShowCreateCourse] = useState(false);
-  const [showActions, setshowActions] = useState(false);
-  const { studyingCourses, loading } = useAppSelector(state => state.courses);
+  const [showActions, setShowActions] = useState(false);
+  const { studyingCourses: courses, loading } = useAppSelector(state => state.courses);
   const dispatch = useAppDispatch();
+  const searchParams = useSearchParams();
+  const query = searchParams.get('query') || '';
 
   useEffect(() => {
     dispatch(loadCourses());
   }, []);
 
-  const handleShowActions = () => {
-    setshowActions(current => !current);
-  };
-
-  const handleJoinCourse = () => {
-    if (showActions) {
-      setshowActions(!showActions);
+  const visibleCourses = useMemo(() => {
+    if (query && query.length > 0) {
+      return courses.filter(course => course.name.toLowerCase().includes(query.toLowerCase()));
     }
 
-    setShowJoinCourse(!showJoinCourse);
-  };
+    return courses;
+  }, [query, courses]);
 
-  const handleCreateCourse = () => {
+  const handleShowActions = useCallback(() => {
+    setShowActions(current => !current);
+  }, []);
+
+  const handleJoinCourse = useCallback(() => {
     if (showActions) {
-      setshowActions(!showActions);
+      setShowActions(false);
     }
 
-    setShowCreateCourse(!showCreateCourse);
-  };
+    setShowJoinCourse(current => !current);
+  }, [showActions]);
+
+  const handleCreateCourse = useCallback(() => {
+    if (showActions) {
+      setShowActions(false);
+    }
+
+    setShowCreateCourse(current => !current);
+  }, [showActions]);
 
   return (
     <div className="main-padding flex w-full flex-col">
-    {/* <div className="main-padding flex h-full w-full flex-col"> */}
       <Header title="Homepage" />
 
       {loading ? (
@@ -56,7 +66,7 @@ export const Hero: React.FC = () => {
             <p className="loader relative w-full"></p>
           </div>
         </div>
-      ) : studyingCourses.length === 0 ? (
+      ) : courses.length === 0 ? (
         <div className="flex flex-1 flex-col items-center justify-center">
           <div className="flex w-full flex-1 flex-col items-center gap-10 pt-32 lg:flex-none lg:pt-0">
             <img
@@ -73,7 +83,7 @@ export const Hero: React.FC = () => {
           />
         </div>
       ) : (
-        <CoursesList courses={studyingCourses} />
+        <CoursesList courses={visibleCourses} />
       )}
 
       <div className="absolute bottom-10 right-10 flex flex-col items-end gap-7">

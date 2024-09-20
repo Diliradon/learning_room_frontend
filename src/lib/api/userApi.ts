@@ -1,5 +1,12 @@
 import client from '../httpClient';
 
+interface UserResponse {
+  email: string;
+  first_name: string;
+  last_name: string;
+  profile_picture: string;
+}
+
 export const singInUser = async ({
   email,
   password,
@@ -10,7 +17,7 @@ export const singInUser = async ({
   try {
     const response = await client.post('/user/login/', { email, password });
 
-    const userDataResponse = await client.get('/user/me/');
+    const userDataResponse = await client.get<UserResponse>('/user/me/');
     console.log('User data:', userDataResponse);
 
     return userDataResponse;
@@ -39,7 +46,7 @@ export const signUpUser = async ({
       last_name,
     });
 
-    const userDataResponse = await client.get('/user/me/');
+    const userDataResponse = await client.get<UserResponse>('/user/me/');
     console.log('User data:', userDataResponse);
 
     return userDataResponse;

@@ -77,6 +77,7 @@ const SignUpPage = () => {
         onBlur={handleBlur}
         errorMessage={errors.firstName}
         setError={setErrors}
+        errors={errors}
       />
 
       <FormInput
@@ -89,6 +90,7 @@ const SignUpPage = () => {
         onBlur={handleBlur}
         errorMessage={errors.lastName}
         setError={setErrors}
+        errors={errors}
       />
 
       <FormInput
@@ -101,6 +103,7 @@ const SignUpPage = () => {
         onBlur={handleBlur}
         errorMessage={errors.email}
         setError={setErrors}
+        errors={errors}
       />
     </Form>
   );

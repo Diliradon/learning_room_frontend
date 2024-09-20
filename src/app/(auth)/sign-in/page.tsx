@@ -35,7 +35,6 @@ const SignInPage = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    router.push('/');
 
     try {
       await validationSchema.validate(
@@ -45,8 +44,9 @@ const SignInPage = () => {
       setErrors({});
 
       const resultAction = await dispatch(
-        loginUser({ email, password }),
+        loginUser({ email: email.trim(), password }),
       ).unwrap();
+      router.push('/');
       console.log('Login successful:', resultAction);
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
@@ -83,6 +83,7 @@ const SignInPage = () => {
         onBlur={handleBlur}
         errorMessage={errors.email}
         setError={setErrors}
+        errors={errors}
       />
 
       <FormInput
@@ -97,9 +98,10 @@ const SignInPage = () => {
         onBlur={handleBlur}
         errorMessage={errors.password}
         setError={setErrors}
+        errors={errors}
       />
 
-      {userError && (<p>Some error happened</p>)}
+      {userError && <p>Some error happened</p>}
     </Form>
   );
 };

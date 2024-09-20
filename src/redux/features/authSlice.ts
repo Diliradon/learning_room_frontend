@@ -9,20 +9,23 @@ interface UserInfo {
 }
 
 interface AuthState {
+  isAuthenticated: boolean;
   userInfo: UserInfo | null;
   loading: boolean;
   error: string | null;
 }
 
 const initialState: AuthState = {
-  userInfo: typeof window !== 'undefined'
-  ? (() => {
-      const storedUserInfo = localStorage.getItem('userInfo');
-      return storedUserInfo && storedUserInfo !== 'undefined'
-        ? JSON.parse(storedUserInfo)
-        : null;
-    })()
-  : null,
+  isAuthenticated: false,
+  userInfo:
+    typeof window !== 'undefined'
+      ? (() => {
+          const storedUserInfo = localStorage.getItem('userInfo');
+          return storedUserInfo && storedUserInfo !== 'undefined'
+            ? JSON.parse(storedUserInfo)
+            : null;
+        })()
+      : null,
   loading: false,
   error: null,
 };
@@ -53,16 +56,21 @@ export const signupUser = createAsyncThunk(
       password,
       first_name,
       last_name,
-}: {
-  email: string;
-  password: string;
-  first_name: string;
-  last_name: string;
-},
+    }: {
+      email: string;
+      password: string;
+      first_name: string;
+      last_name: string;
+    },
     { rejectWithValue },
   ) => {
     try {
-      const userData = await signUpUser({ email, password, first_name, last_name });
+      const userData = await signUpUser({
+        email,
+        password,
+        first_name,
+        last_name,
+      });
       return userData;
     } catch (error: any) {
       console.error('Sign up error:', error);
@@ -78,23 +86,25 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     logout(state) {
+      state.isAuthenticated = false;
       state.userInfo = null;
       state.loading = false;
       state.error = null;
       localStorage.clear();
     },
-
   },
   extraReducers: builder => {
     builder
       .addCase(loginUser.pending, state => {
         localStorage.removeItem('userInfo');
+        state.isAuthenticated = false;
         state.loading = true;
         console.log('loading');
         state.error = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
+        state.isAuthenticated = true;
         state.userInfo = {
           firstName: action.payload.first_name,
           lastName: action.payload.last_name,
@@ -112,12 +122,14 @@ const authSlice = createSlice({
 
       .addCase(signupUser.pending, state => {
         localStorage.removeItem('userInfo');
+        state.isAuthenticated = false;
         state.loading = true;
         console.log('loading');
         state.error = null;
       })
       .addCase(signupUser.fulfilled, (state, action) => {
         state.loading = false;
+        state.isAuthenticated = true;
         state.userInfo = {
           firstName: action.payload.first_name,
           lastName: action.payload.last_name,

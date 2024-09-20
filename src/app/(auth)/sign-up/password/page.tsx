@@ -26,6 +26,14 @@ const SignUpPasswordPage = () => {
 
   const handleBlur = async (event: React.FocusEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+
+    if (name === 'confirmPassword') {
+      if (password !== confirmPassword) {
+        setErrors((prevErrors) => ({ ...prevErrors, [name]: 'Passwords do not match' }));
+        return;
+      }
+    }
+
     try {
       await validationSchema.validateAt(name, { [name]: value });
       setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
@@ -38,22 +46,16 @@ const SignUpPasswordPage = () => {
 
   const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (password !== confirmPassword) {
-      setErrors((prevErrors) => ({ ...prevErrors, [confirmPassword]: 'passwords do not match' }));
-      alert('Passwords do not match');
-      return;
-    }
 
-    router.push('/');
     try {
       const resultAction = await dispatch(signupUser({ email, password, first_name, last_name })).unwrap();
       console.log('Sign-up successful:', resultAction);
+      router.push('/');
     } catch (error) {
       console.error('Sign-up failed:', error);
       router.push('/sign-up');
     }
   };
-
 
   return (
     <Form
@@ -74,6 +76,7 @@ const SignUpPasswordPage = () => {
         onBlur={handleBlur}
         errorMessage={errors.password}
         setError={setErrors}
+        errors={errors}
       />
 
       <FormInput
@@ -88,6 +91,7 @@ const SignUpPasswordPage = () => {
         onBlur={handleBlur}
         errorMessage={errors.confirmPassword}
         setError={setErrors}
+        errors={errors}
       />
     </Form>
   );

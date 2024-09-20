@@ -1,9 +1,12 @@
-import ConditionalRenderer from '@/components/conditionalRenderer';
+import HeroLayout from './home/layout';
+import Hero from './home/page';
 
 export default function Home() {
   return (
     <main>
-      <ConditionalRenderer />
+      <HeroLayout>
+        <Hero />
+      </HeroLayout>
     </main>
   );
 }

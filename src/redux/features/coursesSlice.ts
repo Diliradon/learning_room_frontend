@@ -1,6 +1,6 @@
 import { createCourse, getCourses, joinCourse } from '@/lib/api/coursesApi';
 import client from '@/lib/httpClient';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TableRowsSplitIcon } from 'lucide-react';
 
 type TeachersType = {
@@ -102,7 +102,14 @@ export const joinCourseAction = createAsyncThunk(
 const coursesSlice = createSlice({
   name: 'courses',
   initialState,
-  reducers: {},
+  reducers: {
+    setCourses(state, action: PayloadAction<CourseType[]>) {
+      state.studyingCourses = action.payload;
+    },
+    setError(state, action: PayloadAction<string | null>) {
+      state.error = action.payload;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(loadCourses.pending, state => {
@@ -144,6 +151,5 @@ const coursesSlice = createSlice({
   },
 });
 
-export const {} = coursesSlice.actions;
-
+export const { setCourses, setError } = coursesSlice.actions;
 export default coursesSlice.reducer;

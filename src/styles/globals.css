@@ -87,3 +87,12 @@
     md:rounded-t-3xl md:px-[212px]lg:m-0 lg:max-w-[608px] lg:rounded-l-none lg:rounded-r-3xl lg:px-32
   } */
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+  box-shadow: 0 0 0px 1000px white inset !important;
+  background: inherit !important;
+  -webkit-text-fill-color: #4A4A4A !important;
+}

@@ -2,7 +2,7 @@
 
 import { cn } from '@/lib/utils';
 import { Eye, EyeOff } from 'lucide-react';
-import { Dispatch, forwardRef, SetStateAction, useState } from 'react';
+import { Dispatch, forwardRef, SetStateAction, useMemo, useState } from 'react';
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
@@ -16,6 +16,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   setQuery?: Dispatch<SetStateAction<string>>;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   setError?: Dispatch<SetStateAction<{ [key: string]: string }>>;
+  errors: { [key: string]: string };
 }
 
 export const FormInput = forwardRef<HTMLInputElement, Props>(
@@ -32,6 +33,7 @@ export const FormInput = forwardRef<HTMLInputElement, Props>(
       setQuery,
       onBlur,
       setError,
+      errors,
       ...rest
     },
     ref,
@@ -46,6 +48,8 @@ export const FormInput = forwardRef<HTMLInputElement, Props>(
         setQuery(event.target.value);
       }
     };
+
+    const isValidated = useMemo(() => !!name && errors[name] === '', [errors, name])
 
     return (
       <label
@@ -62,8 +66,9 @@ export const FormInput = forwardRef<HTMLInputElement, Props>(
           type={showPassword ? 'text' : type}
           {...rest}
           className={cn(
-            'main-text border-gray-10 w-full rounded-[100px] px-[12px] py-2.5 focus:outline-primary/200',
-            errorMessage ? 'border-error border-2' : 'border-gray-10 border',
+            'main-text border-gray-10 border w-full rounded-[100px] px-[12px] py-2.5 focus:outline-primary-200',
+            errorMessage && 'border-error border-2',
+            isValidated && 'border-success border-2',
           )}
           autoComplete={type}
         />
