@@ -21,7 +21,7 @@ const SignUpPasswordPage = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const { firstName: first_name, lastName: last_name, email,  } = useAppSelector(state => state.register);
 
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [errors, setErrors] = useState<{ [key: string]: string }>({ password: '', confirmPassword: ''});
   const validationSchema = confirmPasswordValidationSchema;
 
   const handleBlur = async (event: React.FocusEvent<HTMLInputElement>) => {
@@ -36,7 +36,11 @@ const SignUpPasswordPage = () => {
 
     try {
       await validationSchema.validateAt(name, { [name]: value });
-      setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
+      setErrors(prevErrors => {
+        const newErrors = prevErrors;
+        delete newErrors[name];
+        return newErrors;
+      })
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         setErrors((prevErrors) => ({ ...prevErrors, [name]: err.message }));
@@ -63,6 +67,7 @@ const SignUpPasswordPage = () => {
       description="Fill in the details below to tell us more about you"
       titleButton="Next"
       onSubmit={handleRegister}
+      errors={errors}
     >
       <FormInput
         title="Password"

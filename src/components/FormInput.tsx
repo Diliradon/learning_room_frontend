@@ -41,7 +41,11 @@ export const FormInput = forwardRef<HTMLInputElement, Props>(
     const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
       const { name } = event.target;
       if (setError) {
-        setError(prevErrors => ({ ...prevErrors, [name]: '' }));
+        setError(prevErrors => {
+          const newErrors = { ...prevErrors };
+          delete newErrors[name];
+          return newErrors;
+        });
       }
 
       if (setQuery) {
@@ -49,7 +53,7 @@ export const FormInput = forwardRef<HTMLInputElement, Props>(
       }
     };
 
-    const isValidated = useMemo(() => !!name && errors[name] === '', [errors, name])
+    const isValidated = useMemo(() => !!name && !(name in errors), [errors, name]);
 
     return (
       <label

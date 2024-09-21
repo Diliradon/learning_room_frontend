@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { checkEmail } from './api/userApi';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -44,3 +45,18 @@ export function getSearchWith(
   return newParams.toString();
 }
 
+export const validateEmail = async (email: string, invalidEmailMessage: string): Promise<string> => {
+  try {
+    const res = await checkEmail({ email });
+    if (res.message === invalidEmailMessage) {
+      return invalidEmailMessage;
+    }
+  } catch (err) {
+    console.log(err);
+  }
+  return '';
+};
+
+export const capitalizeFirstLetter = (name: string): string => {
+  return name.charAt(0).toUpperCase() + name.slice(1);
+};

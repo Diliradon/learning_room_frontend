@@ -17,6 +17,7 @@ interface Props {
   titleButton: string;
   onNext?: any;
   onSubmit?: any;
+  errors: { [key: string]: string };
 }
 
 export const Form: React.FC<Props> = ({
@@ -28,8 +29,11 @@ export const Form: React.FC<Props> = ({
   titleButton,
   onNext = () => {},
   onSubmit = () => {},
+  errors,
 }) => {
   const router = useRouter();
+
+  const isError = !!Object.keys(errors).length;
 
   return (
     <div className="box-border flex h-screen w-full max-w-[28rem] flex-col px-6 pt-20 text-center md:h-auto md:w-[344px] md:px-0 lg:w-full lg:pt-0">
@@ -68,6 +72,7 @@ export const Form: React.FC<Props> = ({
           <Button
             type={type === 'signup' ? 'button' : 'submit'}
             onClick={event => onNext(event)}
+            disabled={isError}
           >
             {titleButton}
           </Button>

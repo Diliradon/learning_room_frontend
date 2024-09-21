@@ -8,6 +8,7 @@ import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useRouter } from 'next/navigation';
 import { loginValidationSchema } from '@/lib/validationSchemas';
 import * as Yup from 'yup';
+import { validateEmail } from '@/lib/utils';
 
 const SignInPage = () => {
   const router = useRouter();
@@ -17,15 +18,31 @@ const SignInPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [errors, setErrors] = useState<{ [key: string]: string }>({
+    email: '',
+    password: '',
+  });
   const [userError, setUserError] = useState<string>('');
   const validationSchema = loginValidationSchema;
+  const invalidEmailMessage =
+    'The user with the given email address is not yet registered in the system';
 
   const handleBlur = async (event: React.FocusEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     try {
       await validationSchema.validateAt(name, { [name]: value });
-      setErrors(prevErrors => ({ ...prevErrors, [name]: '' }));
+      setErrors(prevErrors => {
+        const newErrors = { ...prevErrors };
+        delete newErrors[name];
+        return newErrors;
+      });
+
+      if (name === 'email') {
+        const emailError = await validateEmail(value, invalidEmailMessage);
+        if (emailError) {
+          setErrors(prevErrors => ({ ...prevErrors, [name]: emailError }));
+        }
+      }
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         setErrors(prevErrors => ({ ...prevErrors, [name]: err.message }));
@@ -72,6 +89,7 @@ const SignInPage = () => {
       type="signin"
       titleButton="Get started"
       onSubmit={handleSubmit}
+      errors={errors}
     >
       <FormInput
         title="Email"

@@ -3,6 +3,8 @@
 import { Form } from '@/components/Form';
 import { FormInput } from '@/components/FormInput';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { checkEmail } from '@/lib/api/userApi';
+import { capitalizeFirstLetter, validateEmail } from '@/lib/utils';
 import { registrationValidationSchema } from '@/lib/validationSchemas';
 import { setNameEmail } from '@/redux/features/registrationSlice';
 import { useRouter } from 'next/navigation';
@@ -17,14 +19,34 @@ const SignUpPage = () => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
 
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [errors, setErrors] = useState<{ [key: string]: string }>({
+    firstName: '',
+    lastName: '',
+    email: '',
+  });
+
   const validationSchema = registrationValidationSchema;
+
+  const invalidEmailMessage =
+    'The user with the given email address is already registered in the system';
 
   const handleBlur = async (event: React.FocusEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+
     try {
       await validationSchema.validateAt(name, { [name]: value });
-      setErrors(prevErrors => ({ ...prevErrors, [name]: '' }));
+      setErrors(prevErrors => {
+        const newErrors = prevErrors;
+        delete newErrors[name];
+        return newErrors;
+      });
+
+      if (name === 'email') {
+        const emailError = await validateEmail(value, invalidEmailMessage);
+        if (emailError) {
+          setErrors(prevErrors => ({ ...prevErrors, [name]: emailError }));
+        }
+      }
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         setErrors(prevErrors => ({ ...prevErrors, [name]: err.message }));
@@ -42,7 +64,13 @@ const SignUpPage = () => {
       );
       setErrors({});
 
-      dispatch(setNameEmail({ firstName, lastName, email }));
+      dispatch(
+        setNameEmail({
+          firstName: capitalizeFirstLetter(firstName),
+          lastName: capitalizeFirstLetter(lastName),
+          email,
+        }),
+      );
 
       router.push('/sign-up/password');
     } catch (error) {
@@ -66,6 +94,7 @@ const SignUpPage = () => {
       type="signup"
       titleButton="Next"
       onNext={handleNextSignUp}
+      errors={errors}
     >
       <FormInput
         title="Name"

@@ -55,3 +55,20 @@ export const signUpUser = async ({
     throw error;
   }
 };
+
+export const checkEmail = async ({
+  email,
+} : {
+  email: string;
+}) => {
+  try {
+    const response = await client.get<{ message: string }>(`/user/check-email/?email=${email}`,);
+    console.log('Email data:', response);
+
+    return response;
+  } catch (error) {
+    console.error('Error during check email:', error);
+    throw error;
+  }
+
+};
