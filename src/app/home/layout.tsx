@@ -6,7 +6,7 @@ export default function HeroLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex h-full bg-gray-10">
+    <div className="flex h-full">
       <SideBar />
       {children}
     </div>

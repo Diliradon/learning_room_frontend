@@ -67,7 +67,7 @@ const config: Config = {
       info: '#66C4E6',
       warning: '#FFD800',
       success: '#7AB74A',
-      },
+    },
   },
   plugins: [],
 };
