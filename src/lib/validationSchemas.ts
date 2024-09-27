@@ -15,13 +15,10 @@ export const loginValidationSchema = Yup.object().shape({
       /[!@#$%^&*(),?":{}|<>_]/,
       'Password must contain at least one special character',
     )
+    .matches(/^\S*$/, "The password can't contain spaces")
     .matches(
       /^(?!.*\.).*$/,
       "Password can't contain dots",
-    )
-    .matches(
-      /^\s*[A-Za-zА-Яа-яЁёІіЇїЄєҐґ]+\s*$/,
-      "Password can't contain spaces"
     ),
 });
 

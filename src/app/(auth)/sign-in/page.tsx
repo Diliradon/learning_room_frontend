@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { loginValidationSchema } from '@/lib/validationSchemas';
 import * as Yup from 'yup';
 import { validateEmail } from '@/lib/utils';
+import { useAppSelector } from '@/hooks/useAppSelector';
 
 const SignInPage = () => {
   const router = useRouter();
@@ -23,12 +24,18 @@ const SignInPage = () => {
     password: '',
   });
   const [userError, setUserError] = useState<string>('');
+  
   const validationSchema = loginValidationSchema;
   const invalidEmailMessage =
     'The user with the given email address is not yet registered in the system';
 
   const handleBlur = async (event: React.FocusEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+
+    if (userError !== '') {
+      setUserError('');
+    }
+
     try {
       await validationSchema.validateAt(name, { [name]: value });
       setErrors(prevErrors => {
@@ -77,8 +84,7 @@ const SignInPage = () => {
       }
 
       console.log('Login failed:', error);
-      setUserError(`${error}`);
-      router.push('/sign-in');
+      setUserError(`Invalid credentials`);
     }
   };
 
@@ -119,7 +125,7 @@ const SignInPage = () => {
         errors={errors}
       />
 
-      {userError && <p>Some error happened</p>}
+      {userError && <p className='text-error'>{userError}</p>}
     </Form>
   );
 };
