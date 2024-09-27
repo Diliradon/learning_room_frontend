@@ -65,7 +65,7 @@ const SignUpPasswordPage = () => {
     <Form
       title="Sign up"
       description="Fill in the details below to tell us more about you"
-      titleButton="Next"
+      titleButton="Get started"
       onSubmit={handleRegister}
       errors={errors}
     >

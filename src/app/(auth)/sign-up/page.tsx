@@ -68,7 +68,7 @@ const SignUpPage = () => {
         setNameEmail({
           firstName: capitalizeFirstLetter(firstName),
           lastName: capitalizeFirstLetter(lastName),
-          email,
+          email: email.trim(),
         }),
       );
 

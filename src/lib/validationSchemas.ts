@@ -12,8 +12,16 @@ export const loginValidationSchema = Yup.object().shape({
     .max(41, 'The length of password must be less than 41 characters')
     .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
     .matches(
-      /[!@#$%^&*(),.?":{}|<>]/,
+      /[!@#$%^&*(),?":{}|<>_]/,
       'Password must contain at least one special character',
+    )
+    .matches(
+      /^(?!.*\.).*$/,
+      "Password can't contain dots",
+    )
+    .matches(
+      /^\s*[A-Za-zА-Яа-яЁёІіЇїЄєҐґ]+\s*$/,
+      "Password can't contain spaces"
     ),
 });
 
@@ -58,10 +66,14 @@ export const confirmPasswordValidationSchema = Yup.object().shape({
     .max(41, 'The length of password must be less than 41 characters')
     .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
     .matches(
-      /[!@#$%^&*(),.?":{}|<>_]/,
+      /[!@#$%^&*(),?":{}|<>_]/,
       'Password must contain at least one special character',
     )
     .matches(/\d/, 'The password must contain at least one number')
-    .matches(/^\S*$/, "The password can't contain spaces"),
+    .matches(/^\S*$/, "The password can't contain spaces")
+    .matches(
+      /^(?!.*\.).*$/,
+      "Password can't contain dots",
+    ),
   confirmPassword: Yup.string().required('Required'),
 });

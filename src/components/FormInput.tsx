@@ -70,7 +70,7 @@ export const FormInput = forwardRef<HTMLInputElement, Props>(
           type={showPassword ? 'text' : type}
           {...rest}
           className={cn(
-            'main-text border-gray-10 border w-full rounded-[100px] px-[12px] py-2.5 focus:outline-primary-200',
+            'main-text border-gray-10 border w-full rounded-[100px] px-[12px] py-2.5 focus:outline-primary-200 bg-gray-0',
             errorMessage && 'border-error border-2',
             isValidated && 'border-success border-2',
           )}
