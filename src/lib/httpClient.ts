@@ -12,7 +12,7 @@ const getCookie = (name: string): string | undefined => {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
   if (parts.length === 2) {
-      return parts.pop()?.split(';').shift();
+    return parts.pop()?.split(';').shift();
   }
   return undefined;
 };
@@ -42,7 +42,7 @@ export function request<T>(
     }
   }
 
-  console.log(JSON.stringify(options))
+  console.log(JSON.stringify(options));
 
   return wait(0)
     .then(() => fetch(BASE_URL + url, options))
@@ -50,7 +50,7 @@ export function request<T>(
       if (!response.ok) {
         return response.json().then(errorData => {
           throw new Error(
-            `Error ${response.status}: ${response.statusText} - ${JSON.stringify(errorData)}`
+            `Error ${response.status}: ${response.statusText} - ${JSON.stringify(errorData)}`,
           );
         });
       }
@@ -66,7 +66,6 @@ export function request<T>(
       throw error;
     });
 }
-
 
 export const client = {
   get: <T>(url: string) => request<T>(url),

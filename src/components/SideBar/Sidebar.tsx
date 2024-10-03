@@ -32,47 +32,52 @@ const menuItems: MenuItem[] = [
   { name: 'Study', icon: UsersRound, link: '/study' },
 ];
 
+const shortString = (string: string) =>
+  string.length > 15 ? string.split('').splice(0, 15).join('') + '...' : string;
+
 const SideBar: React.FC = () => {
   const pathname = usePathname();
   const { isSidebarOpen, toggleSidebar } = useContext(SidebarContext);
   const { userInfo } = useAppSelector(state => state.auth);
+
+  const firstName = userInfo?.firstName || '';
+  const lastName = userInfo?.lastName || '';
 
   const handleBurger = () => toggleSidebar();
 
   return (
     <aside
       className={cn(
-        'bg-gray-0 fixed z-50 h-full rounded-br-[24px] rounded-tr-[24px] p-6 shadow-xl md:px-8 md:py-10 lg:p-10',
+        'fixed z-50 h-full rounded-br-[24px] rounded-tr-[24px] bg-gray-0 p-6 shadow-xl md:px-8 md:py-10 lg:p-10',
         isSidebarOpen
           ? 'w-[254px] md:w-[376px] lg:w-[328px]'
           : 'hidden w-[125px] lg:block lg:pr-[33px]',
       )}
     >
-      <div className="after:bg-gray-20 relative pb-8 after:mt-8 after:block after:h-[1px] after:content-['']">
+      <div className="relative pb-8 after:mt-8 after:block after:h-[1px] after:bg-gray-20 after:content-['']">
         <button
           onClick={handleBurger}
           className={cn('flex w-full', !isSidebarOpen && 'justify-center')}
         >
-          <Menu className="text-gray-100 h-8 w-8" />
+          <Menu className="h-8 w-8 text-gray-100" />
         </button>
       </div>
       <div>
         <ul className="flex flex-col gap-y-8">
-          <li
-            className={cn(
-              'flex items-center gap-x-2',
-              !isSidebarOpen && 'justify-center',
-            )}
-          >
-            <img className="h-12 w-12" src="/avatar.svg" alt="avatar" />
+          <li className="flex items-center gap-x-2">
+            <img
+              className="align-left h-[52px] w-[52px]"
+              src="/avatar.svg"
+              alt="avatar"
+            />
             {isSidebarOpen && (
-              <h6>{`${userInfo?.firstName} ${userInfo?.lastName}`}</h6>
+              <h6>{`${shortString(firstName)} ${shortString(lastName)}`}</h6>
             )}
           </li>
           {menuItems.map(item => (
             <li
               key={item.name}
-              className={` ${pathname === item.link && 'bg-primary-100'} hover:bg-primary-100 rounded-lg`}
+              className={` ${pathname === item.link && 'bg-primary-100'} rounded-lg hover:bg-primary-100`}
             >
               <Link
                 className="box-border flex items-center gap-x-2 px-[10px] py-[5px]"
