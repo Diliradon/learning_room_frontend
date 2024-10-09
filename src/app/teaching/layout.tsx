@@ -1,4 +1,4 @@
-import SideBar from "@/components/SideBar/Sidebar";
+import SideBar from '@/components/SideBar/Sidebar';
 
 export default function HeroLayout({
   children,
@@ -7,9 +7,9 @@ export default function HeroLayout({
 }>) {
   return (
     <main>
-      <div className="bg-gray-10 flex h-screen">
+      <div className="flex h-screen bg-gray-10">
         <SideBar />
-        {children}
+          {children}
       </div>
     </main>
   );

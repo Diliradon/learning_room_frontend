@@ -67,7 +67,7 @@ const SideBar: React.FC = () => {
           <li className="flex items-center gap-x-2">
             <img
               className="align-left h-[52px] w-[52px]"
-              src="/avatar.svg"
+              src={userInfo?.picture || '/avatar.svg'}
               alt="avatar"
             />
             {isSidebarOpen && (

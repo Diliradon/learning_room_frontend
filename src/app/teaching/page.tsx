@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Header } from '@/app/home/components/header/header';
+import { Header } from '@/components/header/header';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/Button';
 
