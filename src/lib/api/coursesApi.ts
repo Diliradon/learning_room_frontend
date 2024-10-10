@@ -1,10 +1,10 @@
-import { CourseType } from "@/redux/features/coursesSlice";
+import { CourseFilter, CourseType } from "@/redux/features/coursesSlice";
 import client from "../httpClient";
 
-export const getCourses = async () => {
-  console.log('getCourses called');
+export const getCourses = async (filter: CourseFilter) => {
+  console.log('GetCourses called');
   try {
-    const response = await client.get<CourseType[]>('/courses/studying-courses/');
+    const response = await client.get<CourseType[]>(`/courses/${filter}-courses/`);
     console.log('Courses:', response);
 
     return response;

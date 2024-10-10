@@ -9,9 +9,10 @@ import { SearchBar } from './searchBar';
 
 type Props = {
   title: string;
+  searchBar?: boolean;
 };
 
-export const Header: React.FC<Props> = ({ title }) => {
+export const Header: React.FC<Props> = ({ title, searchBar = false }) => {
   const { studyingCourses } = useAppSelector(state => state.courses);
   const { isSidebarOpen, toggleSidebar } = useContext(SidebarContext);
 
@@ -32,7 +33,7 @@ export const Header: React.FC<Props> = ({ title }) => {
         {title}
       </h4>
 
-      {!!studyingCourses.length && <SearchBar isSidebarOpen={isSidebarOpen} />}
+      {!!studyingCourses.length && searchBar && <SearchBar isSidebarOpen={isSidebarOpen} />}
     </header>
   );
 };

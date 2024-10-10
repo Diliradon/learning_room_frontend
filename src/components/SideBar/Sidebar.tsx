@@ -39,6 +39,7 @@ const SideBar: React.FC = () => {
   const pathname = usePathname();
   const { isSidebarOpen, toggleSidebar } = useContext(SidebarContext);
   const { userInfo } = useAppSelector(state => state.auth);
+  const pictureUrl = '/avatar.svg';
 
   const firstName = userInfo?.firstName || '';
   const lastName = userInfo?.lastName || '';
@@ -67,7 +68,7 @@ const SideBar: React.FC = () => {
           <li className="flex items-center gap-x-2">
             <img
               className="align-left h-[52px] w-[52px]"
-              src={userInfo?.picture || '/avatar.svg'}
+              src={pictureUrl}
               alt="avatar"
             />
             {isSidebarOpen && (
@@ -77,7 +78,9 @@ const SideBar: React.FC = () => {
           {menuItems.map(item => (
             <li
               key={item.name}
-              className={` ${pathname === item.link && 'bg-primary-100'} rounded-lg hover:bg-primary-100`}
+              className={cn('rounded-lg hover:bg-primary-100', {
+                'bg-primary-100': item.link === '/' && pathname === '/' || (pathname.startsWith(item.link) && item.name !== 'Homepage'),
+              })}
             >
               <Link
                 className="box-border flex items-center gap-x-2 px-[10px] py-[5px]"

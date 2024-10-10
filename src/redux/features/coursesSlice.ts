@@ -25,6 +25,8 @@ interface CoursesState {
   error: string | null;
 }
 
+export type CourseFilter = 'studying' | 'teaching';
+
 const initialState: CoursesState = {
   studyingCourses:
     typeof window !== 'undefined'
@@ -46,9 +48,9 @@ const initialState: CoursesState = {
 
 export const loadCourses = createAsyncThunk(
   'courses/fetch',
-  async (_, { rejectWithValue }) => {
+  async (filter: CourseFilter, { rejectWithValue }) => {
     try {
-      const courses = await getCourses();
+      const courses = await getCourses(filter);
       return courses;
     } catch (error: any) {
       console.error('Fetch courses:', error);
@@ -118,7 +120,11 @@ const coursesSlice = createSlice({
       })
       .addCase(loadCourses.fulfilled, (state, action) => {
         state.loading = false;
-        state.studyingCourses = action.payload as CourseType[];
+        if (action.meta.arg === 'studying') {
+          state.studyingCourses = action.payload as CourseType[];
+        } else if (action.meta.arg === 'teaching') {
+          state.teachingCourses = action.payload as CourseType[];
+        }
       })
       .addCase(loadCourses.rejected, (state, action) => {
         state.loading = false;
