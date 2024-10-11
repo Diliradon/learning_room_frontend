@@ -1,6 +1,6 @@
-import { CourseType } from '@/redux/features/coursesSlice';
 import React from 'react';
-import { CourseBlock } from '../../../components/courseBlock';
+import { CourseType } from '@/types/courseTypes';
+import { CourseBlock } from './courseBlock';
 
 type Props = {
   courses: CourseType[];
@@ -8,11 +8,15 @@ type Props = {
 };
 
 export const CoursesList: React.FC<Props> = ({ courses, teaching }) => {
-
   return (
     <div className="grid-container w-full py-6">
       {courses.map((course, index) => (
-        <CourseBlock  key={course.id} course={course} index={index} teaching={teaching} />
+        <CourseBlock
+          key={course.id}
+          course={course}
+          index={index}
+          teaching={teaching}
+        />
       ))}
     </div>
   );

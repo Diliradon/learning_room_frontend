@@ -1,22 +1,6 @@
 import { createCourse, getCourses, joinCourse } from '@/lib/api/coursesApi';
-import client from '@/lib/httpClient';
+import { CourseFilter, CourseType } from '@/types/courseTypes';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TableRowsSplitIcon } from 'lucide-react';
-
-type TeachersType = {
-  first_name: string;
-  last_name: string;
-};
-
-export type CourseType = {
-  id: string | number;
-  name: string;
-  description: string;
-  unique_key: string;
-  teachers: TeachersType[];
-  students: TeachersType[];
-  number_of_classroom: string;
-};
 
 interface CoursesState {
   studyingCourses: CourseType[];
@@ -25,23 +9,9 @@ interface CoursesState {
   error: string | null;
 }
 
-export type CourseFilter = 'studying' | 'teaching';
-
 const initialState: CoursesState = {
-  studyingCourses:
-    typeof window !== 'undefined'
-      ? (() => {
-          const courses = localStorage.getItem('studyingCourses');
-          return courses && courses !== 'undefined' ? JSON.parse(courses) : [];
-        })()
-      : ([] as CourseType[]),
-  teachingCourses:
-    typeof window !== 'undefined'
-      ? (() => {
-          const courses = localStorage.getItem('teachingCourses');
-          return courses && courses !== 'undefined' ? JSON.parse(courses) : [];
-        })()
-      : ([] as CourseType[]),
+  studyingCourses: [] as CourseType[],
+  teachingCourses: [] as CourseType[],
   loading: false,
   error: null,
 };

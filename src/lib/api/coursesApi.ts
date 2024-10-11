@@ -1,4 +1,4 @@
-import { CourseFilter, CourseType } from "@/redux/features/coursesSlice";
+import { CourseFilter, CourseType } from "@/types/courseTypes";
 import client from "../httpClient";
 
 export const getCourses = async (filter: CourseFilter) => {

@@ -5,13 +5,12 @@ import { Header } from '@/components/header/header';
 import { CreateCourseModal } from '@/components/modalCart/CreateCourseModal';
 import { JoinTheCourseModal } from '@/components/modalCart/JoinTheCourseModal';
 import { ActionButtons } from './components/actionButtons';
-import { CourseType, loadCourses } from '@/redux/features/coursesSlice';
+import { loadCourses } from '@/redux/features/coursesSlice';
 import { useAppSelector } from '@/hooks/useAppSelector';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
-import { CoursesList } from './components/courseList';
-import { BookOpen, BookPlus, Plus, X } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { PlusActionButton } from '@/components/PlusActionButton';
+import { CoursesList } from '@/components/courseList';
 
 export const Hero: React.FC = () => {
   const [showJoinCourse, setShowJoinCourse] = useState(false);

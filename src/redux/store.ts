@@ -8,7 +8,8 @@ export const store = configureStore({
     auth: authSlice,
     register: registrationSlice,
     courses: coursesSlice,
-  }
+  },
+  devTools: process.env.NODE_ENV !== 'production',
 });
 
 export type AppDispatch = typeof store.dispatch;

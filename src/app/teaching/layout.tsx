@@ -1,13 +1,13 @@
 import SideBar from '@/components/SideBar/Sidebar';
 
-export default function HeroLayout({
+export default function TeachingLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <main>
-      <div className="flex h-screen bg-gray-10">
+      <div className="flex h-full">
         <SideBar />
           {children}
       </div>

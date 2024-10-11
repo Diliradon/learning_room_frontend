@@ -6,12 +6,12 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/Button';
 import { useAppSelector } from '@/hooks/useAppSelector';
 import { ActionButtons } from '../home/components/actionButtons';
-import { CoursesList } from '../home/components/courseList';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { loadCourses } from '@/redux/features/coursesSlice';
 import { PlusActionButton } from '@/components/PlusActionButton';
 import { CreateCourseModal } from '@/components/modalCart/CreateCourseModal';
 import { JoinTheCourseModal } from '@/components/modalCart/JoinTheCourseModal';
+import { CoursesList } from '@/components/courseList';
 
 const inputFields = [
   { name: 'Name of the course', placeholder: 'Math' },
@@ -54,7 +54,7 @@ export const Teaching: React.FC = () => {
   }, []);
 
   return (
-    <div className="main-padding flex h-full w-full flex-col bg-gray-0 md:bg-transparent">
+    <div className="main-padding flex w-full flex-col">
       <Header title="Teaching" />
       {loading ? (
         <div className="flex flex-1 flex-col items-center justify-center">
