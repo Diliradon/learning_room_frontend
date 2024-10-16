@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '../Button';
-import { ModalCart } from './ModalCart';
+import { ModalCart } from './modalCart';
 import { cn } from '@/lib/utils';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { joinCourseAction } from '@/redux/features/coursesSlice';

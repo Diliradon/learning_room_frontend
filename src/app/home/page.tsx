@@ -5,7 +5,7 @@ import { Header } from '@/components/header/header';
 import { CreateCourseModal } from '@/components/modalCart/CreateCourseModal';
 import { JoinTheCourseModal } from '@/components/modalCart/JoinTheCourseModal';
 import { ActionButtons } from './components/actionButtons';
-import { loadCourses } from '@/redux/features/coursesSlice';
+import { loadCourses, setStudyingCourses } from '@/redux/features/coursesSlice';
 import { useAppSelector } from '@/hooks/useAppSelector';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useSearchParams } from 'next/navigation';
@@ -24,10 +24,14 @@ export const Hero: React.FC = () => {
   const query = searchParams.get('query') || '';
 
   useEffect(() => {
-    if (courses.length === 0) {
+    const storedCourses = localStorage.getItem('studying-courses');
+
+    if (storedCourses && storedCourses !== 'undefined') {
+      dispatch(setStudyingCourses(JSON.parse(storedCourses)));
+    } else {
       dispatch(loadCourses('studying'));
     }
-  }, []);
+  }, [dispatch]);
 
   const visibleCourses = useMemo(() => {
     if (query && query.length > 0) {

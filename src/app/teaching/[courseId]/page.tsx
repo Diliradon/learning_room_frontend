@@ -3,9 +3,12 @@
 import NotFoundPage from '@/app/not-found';
 import { CourseBlock } from '@/components/courseBlock';
 import { Header } from '@/components/header/header';
+import { CousreSettigsModal } from '@/components/modalCart/CourseSettings';
+import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useAppSelector } from '@/hooks/useAppSelector';
+import { loadCourses, setTeachingCourses } from '@/redux/features/coursesSlice';
 import { Book, EllipsisVertical, Pen, Plus, Settings } from 'lucide-react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface CoursePageProps {
   params: {
@@ -15,12 +18,23 @@ interface CoursePageProps {
 
 export const CoursePage: React.FC<CoursePageProps> = ({ params }) => {
   const { courseId } = params;
-  console.log(courseId);
   const { teachingCourses } = useAppSelector(state => state.courses);
-  console.log(teachingCourses);
+  const dispatch = useAppDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const course = teachingCourses.find(c => c.id.toString() === courseId);
-  console.log(course);
+
+  useEffect(() => {
+    if (teachingCourses.length === 0) {
+      const storedCourses = localStorage.getItem('teaching-courses');
+
+      if (storedCourses && storedCourses !== 'undefined') {
+        dispatch(setTeachingCourses(JSON.parse(storedCourses)));
+      } else {
+        dispatch(loadCourses('teaching'));
+      }
+    }
+  }, [dispatch]);
 
   if (!course) {
     return <NotFoundPage title="Such course does not exist" />;
@@ -41,7 +55,9 @@ export const CoursePage: React.FC<CoursePageProps> = ({ params }) => {
             </span>
           </li>
           <li>
-            <Settings size={32} />
+            <button onClick={() => setIsModalOpen(true)}>
+              <Settings size={32} />
+            </button>
           </li>
         </ul>
       </nav>
@@ -76,6 +92,8 @@ export const CoursePage: React.FC<CoursePageProps> = ({ params }) => {
           </div>
         </div>
       </div>
+
+      {isModalOpen && <CousreSettigsModal course={course} closeModal={() => setIsModalOpen(false)}/>}
     </div>
   );
 };

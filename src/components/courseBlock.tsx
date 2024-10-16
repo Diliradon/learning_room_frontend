@@ -13,14 +13,13 @@ type Props = {
   coursePage?: boolean;
 };
 
-const colors = [
-  '#A6DCEF',
-  '#77D99F',
-  '#FDB7AA',
-  '#D2ADE6',
-  '#FC846A',
-  '#F9E783',
-];
+const colors = {
+  'secondary-100': '#A6DCEF',
+  'secondary-200': '#77D99F',
+  'secondary-300': '#FDB7AA',
+  'secondary-400': '#D2ADE6',
+  'primary-100': '#F9E783',
+}
 
 export const CourseBlock: React.FC<Props> = ({
   course,
@@ -32,7 +31,8 @@ export const CourseBlock: React.FC<Props> = ({
   const router = useRouter();
   const pathname = usePathname();
   const ifIndexPassed = index !== null;
-  const color = ifIndexPassed ? colors[index] : colors[Math.floor(Math.random() * 6)];
+  // const randomColor = ifIndexPassed ? colors[index] : colors[Math.floor(Math.random() * 6)];
+  const randomColor = Object.values(colors)[Math.floor(Math.random() * 6)];
 
   const handleSelectCourse = () => {
     router.push(`${pathname}/${course.id}`);
@@ -47,7 +47,7 @@ export const CourseBlock: React.FC<Props> = ({
         clasnames,
       )}
       onClick={handleSelectCourse}
-      style={{ backgroundColor: color }}
+      style={{ backgroundColor: colors[course.color] || '#FFFFFF' }}
       key={course.id}
     >
       <div className="flex flex-col">

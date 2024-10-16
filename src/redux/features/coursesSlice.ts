@@ -75,8 +75,12 @@ const coursesSlice = createSlice({
   name: 'courses',
   initialState,
   reducers: {
-    setCourses(state, action: PayloadAction<CourseType[]>) {
+    setStudyingCourses(state, action: PayloadAction<CourseType[]>) {
       state.studyingCourses = action.payload;
+      console.log(state.studyingCourses);
+    },
+    setTeachingCourses(state, action: PayloadAction<CourseType[]>) {
+      state.teachingCourses = action.payload;
     },
     setError(state, action: PayloadAction<string | null>) {
       state.error = action.payload;
@@ -92,8 +96,16 @@ const coursesSlice = createSlice({
         state.loading = false;
         if (action.meta.arg === 'studying') {
           state.studyingCourses = action.payload as CourseType[];
+          localStorage.setItem(
+            'studying-courses',
+            JSON.stringify(state.studyingCourses),
+          );
         } else if (action.meta.arg === 'teaching') {
           state.teachingCourses = action.payload as CourseType[];
+          localStorage.setItem(
+            'teaching-courses',
+            JSON.stringify(state.teachingCourses),
+          );
         }
       })
       .addCase(loadCourses.rejected, (state, action) => {
@@ -107,6 +119,10 @@ const coursesSlice = createSlice({
       .addCase(createNewCourse.fulfilled, (state, action) => {
         state.loading = false;
         state.teachingCourses.push(action.payload);
+
+        const storedCourses = JSON.parse(localStorage.getItem('teaching-courses') || '[]');
+        const updatedCourses = [...storedCourses, action.payload];
+        localStorage.setItem('teaching-courses', JSON.stringify(updatedCourses));
       })
       .addCase(createNewCourse.rejected, (state, action) => {
         state.loading = false;
@@ -127,5 +143,5 @@ const coursesSlice = createSlice({
   },
 });
 
-export const { setCourses, setError } = coursesSlice.actions;
+export const { setTeachingCourses, setStudyingCourses, setError } = coursesSlice.actions;
 export default coursesSlice.reducer;

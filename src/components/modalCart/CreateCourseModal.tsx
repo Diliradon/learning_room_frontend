@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '../Button';
-import { ModalCart } from './ModalCart';
+import { ModalCart } from './modalCart';
 import { cn } from '@/lib/utils';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { createNewCourse } from '@/redux/features/coursesSlice';
@@ -31,8 +31,6 @@ export const CreateCourseModal: React.FC<Props> = ({ closeModal }) => {
       description: formData.description,
       number_of_classroom: formData.classroom,
     };
-
-    console.log(newCourseInfo);
 
     dispatch(createNewCourse(newCourseInfo))
       .unwrap()

@@ -7,7 +7,7 @@ import { Button } from '@/components/Button';
 import { useAppSelector } from '@/hooks/useAppSelector';
 import { ActionButtons } from '../home/components/actionButtons';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
-import { loadCourses } from '@/redux/features/coursesSlice';
+import { loadCourses, setTeachingCourses } from '@/redux/features/coursesSlice';
 import { PlusActionButton } from '@/components/PlusActionButton';
 import { CreateCourseModal } from '@/components/modalCart/CreateCourseModal';
 import { JoinTheCourseModal } from '@/components/modalCart/JoinTheCourseModal';
@@ -48,10 +48,14 @@ export const Teaching: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (courses.length === 0) {
+    const storedCourses = localStorage.getItem('teaching-courses');
+
+    if (storedCourses && storedCourses !== 'undefined') {
+      dispatch(setTeachingCourses(JSON.parse(storedCourses)));
+    } else {
       dispatch(loadCourses('teaching'));
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="main-padding flex w-full flex-col">
