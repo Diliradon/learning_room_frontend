@@ -2,7 +2,7 @@
 
 import { SidebarContext } from '@/contexts/SideBarContext';
 import { useAppSelector } from '@/hooks/useAppSelector';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils/utils';
 import { Menu, Search } from 'lucide-react';
 import React, { useContext, useState } from 'react';
 import { SearchBar } from './searchBar';

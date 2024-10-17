@@ -4,7 +4,7 @@ import { Form } from '@/components/Form';
 import { FormInput } from '@/components/FormInput';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { checkEmail } from '@/lib/api/userApi';
-import { capitalizeFirstLetter, validateEmail } from '@/lib/utils';
+import { capitalizeFirstLetter, validateEmail } from '@/lib/utils/utils';
 import { registrationValidationSchema } from '@/lib/validationSchemas';
 import { setNameEmail } from '@/redux/features/registrationSlice';
 import { useRouter } from 'next/navigation';

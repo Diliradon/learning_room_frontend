@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { checkEmail } from './api/userApi';
+import { checkEmail } from '../api/userApi';
+import { RefObject, useEffect } from 'react';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -60,3 +61,4 @@ export const validateEmail = async (email: string, invalidEmailMessage: string):
 export const capitalizeFirstLetter = (name: string): string => {
   return name.charAt(0).toUpperCase() + name.slice(1);
 };
+

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Header } from '@/components/header/header';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils/utils';
 import { Button } from '@/components/Button';
 
 export const Study: React.FC = () => {

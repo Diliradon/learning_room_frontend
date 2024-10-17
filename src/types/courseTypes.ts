@@ -15,8 +15,5 @@ export type CourseType = {
   number_of_classroom: string;
   color: ColorKeys;
 }
-// } & {
-//   [key: string]: string;
-// };
 
 export type CourseFilter = 'studying' | 'teaching';

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '../Button';
 import { ModalCart } from './modalCart';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils/utils';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { createNewCourse } from '@/redux/features/coursesSlice';
 import { useAppSelector } from '@/hooks/useAppSelector';

@@ -8,7 +8,7 @@ import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useRouter } from 'next/navigation';
 import { loginValidationSchema } from '@/lib/validationSchemas';
 import * as Yup from 'yup';
-import { validateEmail } from '@/lib/utils';
+import { validateEmail } from '@/lib/utils/utils';
 import { useAppSelector } from '@/hooks/useAppSelector';
 
 const SignInPage = () => {
@@ -24,7 +24,7 @@ const SignInPage = () => {
     password: '',
   });
   const [userError, setUserError] = useState<string>('');
-  
+
   const validationSchema = loginValidationSchema;
   const invalidEmailMessage =
     'The user with the given email address is not yet registered in the system';

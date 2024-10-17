@@ -1,7 +1,8 @@
-import { cn } from '@/lib/utils';
-import React, { useEffect, useState } from 'react';
+import { cn } from '@/lib/utils/utils';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { X } from 'lucide-react';
+import { useClickOutside } from '@/lib/utils/useClickOutside';
 
 type ModalCartProps = {
   title: string;
@@ -17,18 +18,21 @@ export const ModalCart: React.FC<ModalCartProps> = ({
   description,
 }) => {
   const [isMounted, setIsMounted] = useState(false);
+  const modalRef = useRef(null);
 
   useEffect(() => {
     console.log("Portal component mounted");
     setIsMounted(true);
   }, []);
 
+  useClickOutside(modalRef, closeModal);
+
   if (!isMounted) return null;
 
   return ReactDOM.createPortal(
     <div className="main-padding fixed inset-0 bg-gray-0 pb-[74px] pt-6 backdrop-blur-sm md:bg-gray-100/50 md:py-0">
       <div className="grid-container bg-white h-full w-full justify-center md:items-center">
-        <div className="col-span-full flex flex-col md:col-span-6 md:col-start-2 md:rounded-3xl md:bg-gray-0 md:py-[60px] md:shadow-sm lg:col-start-4">
+        <div ref={modalRef} className="col-span-full flex flex-col md:col-span-6 md:col-start-2 md:rounded-3xl md:bg-gray-0 md:py-[60px] md:shadow-sm lg:col-start-4">
           <div className="flex flex-col items-center gap-4 md:gap-2">
             <div className="relative flex w-full justify-center">
               <h5 className="text-gray-100">{title}</h5>

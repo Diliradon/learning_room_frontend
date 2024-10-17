@@ -1,6 +1,6 @@
 'use-client';
 
-import { cn, getSearchWith, SearchParams } from '@/lib/utils';
+import { cn, getSearchWith, SearchParams } from '@/lib/utils/utils';
 import debounce from 'lodash.debounce';
 import { Search } from 'lucide-react';
 import { usePathname, useSearchParams } from 'next/navigation';

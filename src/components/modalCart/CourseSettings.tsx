@@ -1,11 +1,11 @@
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import React, { useEffect, useRef, useState } from 'react';
 import { ModalCart } from './modalCart';
-import { cn } from '@/lib/utils';
 import { CourseType } from '@/types/courseTypes';
 import { Pen } from 'lucide-react';
 import { Button } from '../Button';
-import { editCourse } from '@/lib/api/coursesApi';
+import { cn } from '@/lib/utils/utils';
+import { Dropdown } from '../Dropdown';
 
 type Props = {
   closeModal: () => void;
@@ -27,15 +27,20 @@ const inputFields = [
   { name: 'Classroom', placeholder: 'number_of_classroom', default: '001' },
 ];
 
+const dropdownValues = ['No ratings', '5-points', '12-points', '100-points'];
+
 export const CousreSettigsModal: React.FC<Props> = ({ closeModal, course }) => {
   const dispatch = useAppDispatch();
   const [newColor, setNewColor] = useState<ColorKeys>(course.color);
   const [newName, setNewName] = useState(course.name);
   const [newClassroom, setNewClassroom] = useState(course.number_of_classroom);
   const [newDescription, setNewDescription] = useState(course.description);
+  const [rating, setRating] = useState<string>('No ratings');
+
   const [nameIsEditing, setNameIsEditing] = useState(false);
   const [classroomIsEditing, setClassroomIsEditing] = useState(false);
   const [descriptionIsEditing, setDescriptionIsEditing] = useState(false);
+
   const nameInputRef = useRef<HTMLInputElement>(null);
   const classroomInputRef = useRef<HTMLInputElement>(null);
   const descriptionInputRef = useRef<HTMLInputElement>(null);
@@ -52,7 +57,10 @@ export const CousreSettigsModal: React.FC<Props> = ({ closeModal, course }) => {
     }
   }, [nameIsEditing, classroomIsEditing, descriptionIsEditing]);
 
-  const handleInput = (event: React.ChangeEvent<HTMLInputElement>, setFunc: (value: string) => void) => {
+  const handleInput = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    setFunc: (value: string) => void,
+  ) => {
     setFunc(event.target.value);
   };
 
@@ -72,9 +80,6 @@ export const CousreSettigsModal: React.FC<Props> = ({ closeModal, course }) => {
   //   }).catch((e) => {
   //     console.log('Updated error:', e);
   //   })
-
-
-
 
   //   // dispatch(createNewCourse(newCourseInfo))
   //   //   .unwrap()
@@ -112,6 +117,7 @@ export const CousreSettigsModal: React.FC<Props> = ({ closeModal, course }) => {
             ))}
           </div>
         </div>
+
         <div className="relative flex flex-col gap-4 pt-4">
           <label className="flex flex-col gap-2 text-start">
             <p className="main-text-medium">
@@ -202,18 +208,18 @@ export const CousreSettigsModal: React.FC<Props> = ({ closeModal, course }) => {
             <Pen />
           </button>
 
+          <Dropdown
+            values={dropdownValues}
+            label={rating}
+            currentItem={rating}
+            onSelect={item => setRating(item)}
+          />
+
           {/* <small className={textStyle}>
             {error ? error : successMessage}
           </small> */}
         </div>
         <div className="flex flex-col-reverse gap-4 pt-12 md:gap-6 lg:flex-row lg:gap-4">
-          <Button
-            className="border-gray-500 border-[1px]"
-            applyBackground={false}
-            onClick={closeModal}
-          >
-            Cancel
-          </Button>
           <Button>Update</Button>
         </div>
       </form>
